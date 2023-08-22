@@ -21,5 +21,60 @@ def printbox():
   print('|'+ choices[12]+ '|'+choices[13] + '|' +choices[14]+ '|' + '|' +choices[15]+ '|')
   print('===============')
 
-printbox()
+
+
+print("Player 1 use X")
+print("Player 2 use #")
+#apni conditions add krni ha !
+
+while not winner and iterations <16:
+  printbox()
+
+  iterations +=1
+
+  if firstplayer == True:
+    print('Player 1 :', end = '')
+  else:
+    print('Player 2 :',end = '')
+
+  try:
+    playerinput = int(input())
+  except:
+    print('Please enter the value in the box ')
+    continue
+  
+
+  #hum check kr rhy hain agr phle sy udr koi mark hua ha ya nhi
+  if choices[playerinput]=='X' or choices[playerinput]=='#':
+    print('yh move thk nhi thi ')
+    continue
+
+  if firstplayer:
+    choices[playerinput ] = 'X'
+  else:
+    choices[playerinput ] = '#'
+
+  firstplayer = not firstplayer
+
+  #indexing kidr place krna ha or kon sa khali ha box
+
+  for index in range(0,4):
+    if (choices[index*4]==choices[((index*4)+1)] and choices[index*4]==choices[((index*4)+2)]and choices[index*4]==choices[((index*4)+3)]):
+      winner = True
+      printbox()
+
+    if (choices[index]==choices[index+4]and choices[index+4]==choices[index+8] and choices[index+8]==choices[index+12]):
+      winner = True
+      printbox()
+
+
+  if((choices[0]==choices[5]and choices[5]==choices[10] and choices[10]==choices[15]) or
+     (choices[3]==choices[6]and choices[6]==choices[9])and choices[9]==choices[12]):
+     winner = True
+     printbox()
+
+if winner:
+  print('Player '+str(int(firstplayer+1))+ ' wins, Congratualetions !')
+else:
+  print("game draw ho gae ")
 
